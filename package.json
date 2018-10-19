@@ -1,0 +1,36 @@
+{
+  "name": "@greysystems-angular/mtc-mtc-ms-backoffice-api",
+  "version": "1.0.0-SNAPSHOT.201810191435",
+  "description": "swagger client for @greysystems-angular/mtc-mtc-ms-backoffice-api",
+  "author": "developers@greysystems.eu",
+  "keywords": [
+    "swagger-client"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json"
+  },
+  "peerDependencies": {
+    "@angular/core": "^5.0.0",
+    "@angular/http": "^5.0.0",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "core-js": "^2.4.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "^5.4.0",
+    "zone.js": "^0.7.6"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/http": "^5.0.0",
+    "@angular/common": "^5.0.0",
+    "@angular/compiler": "^5.0.0",
+    "@angular/platform-browser": "^5.0.0",
+    "ng-packagr": "^2.4.1",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "^5.4.0",
+    "zone.js": "^0.7.6",
+    "typescript": ">=2.1.5 <2.8"
+  }
+}
