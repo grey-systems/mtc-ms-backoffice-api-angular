@@ -19,8 +19,11 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs/Observable';
 
 import { FullTransferDetails } from '../model/fullTransferDetails';
+import { PaginatedResultComposedTransferBasicInfo } from '../model/paginatedResultComposedTransferBasicInfo';
+import { RestError } from '../model/restError';
 import { SearchRequest } from '../model/searchRequest';
-import { TransferSearchResult } from '../model/transferSearchResult';
+import { TransferNote } from '../model/transferNote';
+import { TransferNoteCreation } from '../model/transferNoteCreation';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -57,6 +60,61 @@ export class MtcTransferServiceControllerService {
         return false;
     }
 
+
+    /**
+     * createTransferNote
+     * 
+     * @param id id
+     * @param creationNote creationNote
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createTransferNoteUsingPOST(id: number, creationNote: TransferNoteCreation, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public createTransferNoteUsingPOST(id: number, creationNote: TransferNoteCreation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public createTransferNoteUsingPOST(id: number, creationNote: TransferNoteCreation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public createTransferNoteUsingPOST(id: number, creationNote: TransferNoteCreation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling createTransferNoteUsingPOST.');
+        }
+        if (creationNote === null || creationNote === undefined) {
+            throw new Error('Required parameter creationNote was null or undefined when calling createTransferNoteUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<number>(`${this.basePath}/transfer/${encodeURIComponent(String(id))}/note`,
+            creationNote,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * getTransferDetails
@@ -105,15 +163,61 @@ export class MtcTransferServiceControllerService {
     }
 
     /**
+     * searchNotesByTransferId
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public searchNotesByTransferIdUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<TransferNote>>;
+    public searchNotesByTransferIdUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TransferNote>>>;
+    public searchNotesByTransferIdUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TransferNote>>>;
+    public searchNotesByTransferIdUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling searchNotesByTransferIdUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<TransferNote>>(`${this.basePath}/transfer/${encodeURIComponent(String(id))}/note`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * searchTransfers
      * 
      * @param filter filter
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'body', reportProgress?: boolean): Observable<Array<TransferSearchResult>>;
-    public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TransferSearchResult>>>;
-    public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TransferSearchResult>>>;
+    public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'body', reportProgress?: boolean): Observable<PaginatedResultComposedTransferBasicInfo>;
+    public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedResultComposedTransferBasicInfo>>;
+    public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedResultComposedTransferBasicInfo>>;
     public searchTransfersUsingPOST(filter: SearchRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (filter === null || filter === undefined) {
             throw new Error('Required parameter filter was null or undefined when calling searchTransfersUsingPOST.');
@@ -144,7 +248,7 @@ export class MtcTransferServiceControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Array<TransferSearchResult>>(`${this.basePath}/transfer/search`,
+        return this.httpClient.post<PaginatedResultComposedTransferBasicInfo>(`${this.basePath}/transfer/search`,
             filter,
             {
                 withCredentials: this.configuration.withCredentials,

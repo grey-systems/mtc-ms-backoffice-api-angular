@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs/Observab
 
 import { BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI } from '../model/basicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI';
 import { LookForMsagentsThatMeetTheFollowingCriteria_ } from '../model/lookForMsagentsThatMeetTheFollowingCriteria_';
+import { RestError } from '../model/restError';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { MtcAgentControllerService } from './api/mtcAgentController.service';
+import { MtcCustomerControllerService } from './api/mtcCustomerController.service';
 import { MtcTransferServiceControllerService } from './api/mtcTransferServiceController.service';
 
 @NgModule({
@@ -12,6 +13,7 @@ import { MtcTransferServiceControllerService } from './api/mtcTransferServiceCon
   exports:      [],
   providers: [
     MtcAgentControllerService,
+    MtcCustomerControllerService,
     MtcTransferServiceControllerService ]
 })
 export class ApiModule {

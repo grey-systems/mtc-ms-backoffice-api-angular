@@ -26,6 +26,8 @@ export interface SearchRequest {
     fromDateTime?: Date;
     toDateTime?: Date;
     channel?: SearchRequest.ChannelEnum;
+    page?: number;
+    pageSize?: number;
 }
 export namespace SearchRequest {
     export type BlockedStatusEnum = 'Blocked' | 'Unblocked';

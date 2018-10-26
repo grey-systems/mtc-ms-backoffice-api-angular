@@ -1,12 +1,12 @@
 {
   "name": "@greysystems-angular/mtc-mtc-ms-backoffice-api",
-  "version": "1.0.0-SNAPSHOT.201810191435",
+  "version": "1.0.0-SNAPSHOT.201810261131",
   "description": "swagger client for @greysystems-angular/mtc-mtc-ms-backoffice-api",
-  "author": "developers@greysystems.eu",
+  "author": "Swagger Codegen Contributors",
   "keywords": [
     "swagger-client"
   ],
-  "license": "MIT",
+  "license": "Unlicense",
   "scripts": {
     "build": "ng-packagr -p ng-package.json"
   },
