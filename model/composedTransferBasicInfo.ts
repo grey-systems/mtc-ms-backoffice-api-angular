@@ -9,13 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { AgentBasic } from './agentBasic';
 import { Amount } from './amount';
-import { BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI } from './basicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI';
 import { ExchangeRate } from './exchangeRate';
 
 
 export interface ComposedTransferBasicInfo { 
-    agentInfo?: BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI;
+    agentInfo?: AgentBasic;
     beneficiaryName?: string;
     blockedStatus?: ComposedTransferBasicInfo.BlockedStatusEnum;
     channel?: ComposedTransferBasicInfo.ChannelEnum;

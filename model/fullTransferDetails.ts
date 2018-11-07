@@ -9,14 +9,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI } from './basicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI';
+import { AgentBasic } from './agentBasic';
 import { FinancialData } from './financialData';
 import { TransferCustomer } from './transferCustomer';
 import { TransferDestination } from './transferDestination';
 
 
 export interface FullTransferDetails { 
-    agentInfo?: BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI;
+    agentInfo?: AgentBasic;
     blockStatus?: FullTransferDetails.BlockStatusEnum;
     channel?: FullTransferDetails.ChannelEnum;
     customerLocal?: TransferCustomer;

@@ -1,6 +1,8 @@
 export * from './address';
+export * from './agent';
+export * from './agentBasic';
+export * from './agentSearchFilter';
 export * from './amount';
-export * from './basicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI';
 export * from './composedTransferBasicInfo';
 export * from './createCustomerRequest';
 export * from './customer';
@@ -11,7 +13,6 @@ export * from './financialData';
 export * from './fiscalCode';
 export * from './fullTransferDetails';
 export * from './identityDocument';
-export * from './lookForMsagentsThatMeetTheFollowingCriteria_';
 export * from './paginatedResultComposedTransferBasicInfo';
 export * from './paginatedResultSearchCustomerResponse';
 export * from './restError';

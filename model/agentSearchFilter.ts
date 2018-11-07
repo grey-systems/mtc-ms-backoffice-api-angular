@@ -11,7 +11,7 @@
  */
 
 
-export interface LookForMsagentsThatMeetTheFollowingCriteria_ { 
+export interface AgentSearchFilter { 
     /**
      * By agent code
      */
@@ -51,9 +51,9 @@ export interface LookForMsagentsThatMeetTheFollowingCriteria_ {
     /**
      * By agent status
      */
-    status?: LookForMsagentsThatMeetTheFollowingCriteria_.StatusEnum;
+    status?: AgentSearchFilter.StatusEnum;
 }
-export namespace LookForMsagentsThatMeetTheFollowingCriteria_ {
+export namespace AgentSearchFilter {
     export type StatusEnum = 'Active' | 'Inactive' | 'Sign_Out' | 'Pending';
     export const StatusEnum = {
         Active: 'Active' as StatusEnum,

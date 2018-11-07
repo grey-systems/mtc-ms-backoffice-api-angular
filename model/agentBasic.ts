@@ -11,7 +11,7 @@
  */
 
 
-export interface BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI { 
+export interface AgentBasic { 
     /**
      * The agent's code
      */

@@ -18,8 +18,9 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
-import { BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI } from '../model/basicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI';
-import { LookForMsagentsThatMeetTheFollowingCriteria_ } from '../model/lookForMsagentsThatMeetTheFollowingCriteria_';
+import { Agent } from '../model/agent';
+import { AgentBasic } from '../model/agentBasic';
+import { AgentSearchFilter } from '../model/agentSearchFilter';
 import { RestError } from '../model/restError';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -65,9 +66,9 @@ export class MtcAgentControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>;
-    public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>>;
-    public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>>;
+    public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'body', reportProgress?: boolean): Observable<Array<AgentBasic>>;
+    public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AgentBasic>>>;
+    public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AgentBasic>>>;
     public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (idAgentList === null || idAgentList === undefined) {
             throw new Error('Required parameter idAgentList was null or undefined when calling bulkAgentBasicDataUsingGET.');
@@ -98,7 +99,7 @@ export class MtcAgentControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.get<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>(`${this.basePath}/agents/basic`,
+        return this.httpClient.get<Array<AgentBasic>>(`${this.basePath}/agents/basic`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -115,9 +116,9 @@ export class MtcAgentControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAgentBasicDataUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>;
-    public getAgentBasicDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>;
-    public getAgentBasicDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>;
+    public getAgentBasicDataUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<AgentBasic>;
+    public getAgentBasicDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AgentBasic>>;
+    public getAgentBasicDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AgentBasic>>;
     public getAgentBasicDataUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getAgentBasicDataUsingGET.');
@@ -144,7 +145,7 @@ export class MtcAgentControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>(`${this.basePath}/agents/${encodeURIComponent(String(id))}/basic`,
+        return this.httpClient.get<AgentBasic>(`${this.basePath}/agents/${encodeURIComponent(String(id))}/basic`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -161,9 +162,9 @@ export class MtcAgentControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAgentDetailDataUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>;
-    public getAgentDetailDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>;
-    public getAgentDetailDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>;
+    public getAgentDetailDataUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Agent>;
+    public getAgentDetailDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Agent>>;
+    public getAgentDetailDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Agent>>;
     public getAgentDetailDataUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getAgentDetailDataUsingGET.');
@@ -190,7 +191,7 @@ export class MtcAgentControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>(`${this.basePath}/agents/${encodeURIComponent(String(id))}/detail`,
+        return this.httpClient.get<Agent>(`${this.basePath}/agents/${encodeURIComponent(String(id))}/detail`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -207,10 +208,10 @@ export class MtcAgentControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public searchAgentsUsingFilterUsingPOST(filter: LookForMsagentsThatMeetTheFollowingCriteria_, observe?: 'body', reportProgress?: boolean): Observable<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>;
-    public searchAgentsUsingFilterUsingPOST(filter: LookForMsagentsThatMeetTheFollowingCriteria_, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>>;
-    public searchAgentsUsingFilterUsingPOST(filter: LookForMsagentsThatMeetTheFollowingCriteria_, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>>;
-    public searchAgentsUsingFilterUsingPOST(filter: LookForMsagentsThatMeetTheFollowingCriteria_, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'body', reportProgress?: boolean): Observable<Array<AgentBasic>>;
+    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AgentBasic>>>;
+    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AgentBasic>>>;
+    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (filter === null || filter === undefined) {
             throw new Error('Required parameter filter was null or undefined when calling searchAgentsUsingFilterUsingPOST.');
         }
@@ -240,7 +241,7 @@ export class MtcAgentControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Array<BasicInformationAboutTheAgentYouCanGetMoreDetailsUsingDetailsResourcesPublishedInThisAPI>>(`${this.basePath}/agents/search`,
+        return this.httpClient.post<Array<AgentBasic>>(`${this.basePath}/agents/search`,
             filter,
             {
                 withCredentials: this.configuration.withCredentials,
