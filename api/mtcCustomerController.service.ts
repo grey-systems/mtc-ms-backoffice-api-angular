@@ -22,6 +22,8 @@ import { CreateCustomerRequest } from '../model/createCustomerRequest';
 import { Customer } from '../model/customer';
 import { CustomerBasicData } from '../model/customerBasicData';
 import { CustomerEssentialData } from '../model/customerEssentialData';
+import { Note } from '../model/note';
+import { NoteCreation } from '../model/noteCreation';
 import { PaginatedResultSearchCustomerResponse } from '../model/paginatedResultSearchCustomerResponse';
 import { RestError } from '../model/restError';
 import { SearchCustomerRequest } from '../model/searchCustomerRequest';
@@ -170,6 +172,61 @@ export class MtcCustomerControllerService {
 
         return this.httpClient.put<number>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/idDoc/${encodeURIComponent(String(idDoc))}`,
             identityDocumentDetail,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * createCustomerNote
+     * 
+     * @param id id
+     * @param creationNote creationNote
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createCustomerNoteUsingPOST(id: number, creationNote: NoteCreation, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public createCustomerNoteUsingPOST(id: number, creationNote: NoteCreation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public createCustomerNoteUsingPOST(id: number, creationNote: NoteCreation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public createCustomerNoteUsingPOST(id: number, creationNote: NoteCreation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling createCustomerNoteUsingPOST.');
+        }
+        if (creationNote === null || creationNote === undefined) {
+            throw new Error('Required parameter creationNote was null or undefined when calling createCustomerNoteUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<number>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/note`,
+            creationNote,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -514,6 +571,52 @@ export class MtcCustomerControllerService {
 
         return this.httpClient.post<PaginatedResultSearchCustomerResponse>(`${this.basePath}/customer/search`,
             request,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * searchNotesByCustomerId
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public searchNotesByCustomerIdUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Note>>;
+    public searchNotesByCustomerIdUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Note>>>;
+    public searchNotesByCustomerIdUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Note>>>;
+    public searchNotesByCustomerIdUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling searchNotesByCustomerIdUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Note>>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/note`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

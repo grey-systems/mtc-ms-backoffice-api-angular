@@ -13,6 +13,8 @@ export * from './financialData';
 export * from './fiscalCode';
 export * from './fullTransferDetails';
 export * from './identityDocument';
+export * from './note';
+export * from './noteCreation';
 export * from './paginatedResultComposedTransferBasicInfo';
 export * from './paginatedResultSearchCustomerResponse';
 export * from './restError';

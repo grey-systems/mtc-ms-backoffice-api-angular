@@ -1,4 +1,4 @@
-## @greysystems-angular/mtc-mtc-ms-backoffice-api@1.0.0-SNAPSHOT.201811071937
+## @greysystems-angular/mtc-mtc-ms-backoffice-api@1.0.0-SNAPSHOT.201811081737
 
 ### Building
 
@@ -19,7 +19,7 @@ Navigate to the folder of your consuming project and run one of next commands.
 _published:_
 
 ```
-npm install @greysystems-angular/mtc-mtc-ms-backoffice-api@1.0.0-SNAPSHOT.201811071937 --save
+npm install @greysystems-angular/mtc-mtc-ms-backoffice-api@1.0.0-SNAPSHOT.201811081737 --save
 ```
 
 _without publishing (not recommended):_
