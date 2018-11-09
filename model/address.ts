@@ -12,6 +12,8 @@
 
 
 export interface Address { 
+    country?: string;
+    idCity?: string;
     letter?: string;
     number?: string;
     postalCode?: string;

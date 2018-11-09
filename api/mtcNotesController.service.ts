@@ -160,7 +160,7 @@ export class MtcNotesControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<Note>>(`${this.basePath}/note${encodeURIComponent(String(owner))}`,
+        return this.httpClient.get<Array<Note>>(`${this.basePath}/note/search`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

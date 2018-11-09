@@ -13,8 +13,12 @@
 
 export interface TransferDestination { 
     address?: string;
+    bankAccount?: string;
+    bankAgency?: string;
+    name?: string;
     payerCode?: string;
     payerName?: string;
+    phone?: string;
     remoteCity?: string;
     remoteCountry?: string;
 }

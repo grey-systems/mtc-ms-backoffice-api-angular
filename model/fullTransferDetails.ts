@@ -22,13 +22,14 @@ export interface FullTransferDetails {
     customerLocal?: TransferCustomer;
     customerRemote?: TransferCustomer;
     deliveryMode?: FullTransferDetails.DeliveryModeEnum;
-    destinationCountry?: string;
     financialData?: FinancialData;
     hasIncidents?: boolean;
     id?: number;
     idAgent?: number;
     idCustomerRelationship?: number;
+    idLocalCustomer?: number;
     idPurposeOfSending?: number;
+    idRemoteCustomer?: number;
     messageForBeneficiary?: string;
     operationDate?: Date;
     originOfFunds?: string;

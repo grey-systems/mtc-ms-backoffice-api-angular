@@ -17,7 +17,7 @@ import { IdentityDocument } from './identityDocument';
 export interface TransferCustomer { 
     address?: Address;
     authorityDelivery?: string;
-    countryAddress?: string;
+    code?: string;
     countryNationality?: string;
     dateCreation?: Date;
     dateModified?: Date;
