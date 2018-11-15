@@ -2,6 +2,7 @@ export * from './address';
 export * from './agent';
 export * from './agentBasic';
 export * from './agentSearchFilter';
+export * from './agentSearchResult';
 export * from './amount';
 export * from './composedTransferBasicInfo';
 export * from './createCustomerRequest';

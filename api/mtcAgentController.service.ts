@@ -21,6 +21,7 @@ import { Observable }                                        from 'rxjs/Observab
 import { Agent } from '../model/agent';
 import { AgentBasic } from '../model/agentBasic';
 import { AgentSearchFilter } from '../model/agentSearchFilter';
+import { AgentSearchResult } from '../model/agentSearchResult';
 import { RestError } from '../model/restError';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -208,9 +209,9 @@ export class MtcAgentControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'body', reportProgress?: boolean): Observable<Array<AgentBasic>>;
-    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AgentBasic>>>;
-    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AgentBasic>>>;
+    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'body', reportProgress?: boolean): Observable<Array<AgentSearchResult>>;
+    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AgentSearchResult>>>;
+    public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AgentSearchResult>>>;
     public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (filter === null || filter === undefined) {
             throw new Error('Required parameter filter was null or undefined when calling searchAgentsUsingFilterUsingPOST.');
@@ -241,7 +242,7 @@ export class MtcAgentControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Array<AgentBasic>>(`${this.basePath}/agents/search`,
+        return this.httpClient.post<Array<AgentSearchResult>>(`${this.basePath}/agents/search`,
             filter,
             {
                 withCredentials: this.configuration.withCredentials,

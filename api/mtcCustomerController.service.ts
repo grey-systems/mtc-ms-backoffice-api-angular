@@ -68,6 +68,79 @@ export class MtcCustomerControllerService {
 
 
     /**
+     * createCustomerIdentityDocumentFile
+     * 
+     * @param id id
+     * @param idDoc idDoc
+     * @param file file
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createCustomerIdentityDocumentFileUsingPOST(id: number, idDoc: number, file: Blob, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public createCustomerIdentityDocumentFileUsingPOST(id: number, idDoc: number, file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public createCustomerIdentityDocumentFileUsingPOST(id: number, idDoc: number, file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public createCustomerIdentityDocumentFileUsingPOST(id: number, idDoc: number, file: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling createCustomerIdentityDocumentFileUsingPOST.');
+        }
+        if (idDoc === null || idDoc === undefined) {
+            throw new Error('Required parameter idDoc was null or undefined when calling createCustomerIdentityDocumentFileUsingPOST.');
+        }
+        if (file === null || file === undefined) {
+            throw new Error('Required parameter file was null or undefined when calling createCustomerIdentityDocumentFileUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'multipart/form-data'
+        ];
+
+        const canConsumeForm = this.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): void; };
+        let useForm = false;
+        let convertFormParamsToString = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        }
+
+        if (file !== undefined) {
+            formParams = formParams.append('file', <any>file) || formParams;
+        }
+
+        return this.httpClient.post<string>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/idDoc/${encodeURIComponent(String(idDoc))}/file`,
+            convertFormParamsToString ? formParams.toString() : formParams,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * createCustomerIdentityDocument
      * 
      * @param id id
@@ -112,65 +185,6 @@ export class MtcCustomerControllerService {
         }
 
         return this.httpClient.post<number>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/idDoc`,
-            identityDocumentDetail,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * createCustomerIdentityDocument
-     * 
-     * @param id id
-     * @param idDoc idDoc
-     * @param identityDocumentDetail identityDocumentDetail
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public createCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public createCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public createCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling createCustomerIdentityDocumentUsingPUT.');
-        }
-        if (idDoc === null || idDoc === undefined) {
-            throw new Error('Required parameter idDoc was null or undefined when calling createCustomerIdentityDocumentUsingPUT.');
-        }
-        if (identityDocumentDetail === null || identityDocumentDetail === undefined) {
-            throw new Error('Required parameter identityDocumentDetail was null or undefined when calling createCustomerIdentityDocumentUsingPUT.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.put<number>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/idDoc/${encodeURIComponent(String(idDoc))}`,
             identityDocumentDetail,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -484,6 +498,56 @@ export class MtcCustomerControllerService {
     }
 
     /**
+     * getCustomerIdentityDocumentFileById
+     * 
+     * @param id id
+     * @param idDoc idDoc
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getCustomerIdentityDocumentFileByIdUsingGET(id: number, idDoc: number, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public getCustomerIdentityDocumentFileByIdUsingGET(id: number, idDoc: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public getCustomerIdentityDocumentFileByIdUsingGET(id: number, idDoc: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public getCustomerIdentityDocumentFileByIdUsingGET(id: number, idDoc: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getCustomerIdentityDocumentFileByIdUsingGET.');
+        }
+        if (idDoc === null || idDoc === undefined) {
+            throw new Error('Required parameter idDoc was null or undefined when calling getCustomerIdentityDocumentFileByIdUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<string>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/idDoc/${encodeURIComponent(String(idDoc))}/file`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * getCustomerIdentityDocuments
      * 
      * @param id id
@@ -617,6 +681,65 @@ export class MtcCustomerControllerService {
         ];
 
         return this.httpClient.get<Array<Note>>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/note`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * updateCustomerIdentityDocument
+     * 
+     * @param id id
+     * @param idDoc idDoc
+     * @param identityDocumentDetail identityDocumentDetail
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public updateCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public updateCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public updateCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling updateCustomerIdentityDocumentUsingPUT.');
+        }
+        if (idDoc === null || idDoc === undefined) {
+            throw new Error('Required parameter idDoc was null or undefined when calling updateCustomerIdentityDocumentUsingPUT.');
+        }
+        if (identityDocumentDetail === null || identityDocumentDetail === undefined) {
+            throw new Error('Required parameter identityDocumentDetail was null or undefined when calling updateCustomerIdentityDocumentUsingPUT.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<number>(`${this.basePath}/customer/${encodeURIComponent(String(id))}/idDoc/${encodeURIComponent(String(idDoc))}`,
+            identityDocumentDetail,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
