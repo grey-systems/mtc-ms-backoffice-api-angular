@@ -1,16 +1,25 @@
-## @greysystems-angular/mtc-mtc-ms-backoffice-api@1.0.0-SNAPSHOT.201811201209
+## @greysystems-angular/mtc-mtc-ms-backoffice-api
+
+[![Build Status](https://travis-ci.org/grey-systems/mtc-ms-backoffice-api-angular.svg?branch=develop)](https://travis-ci.org/grey-systems/mtc-ms-backoffice-api-angular)
+
+### Generate Code from swagger definitions
+
+This project contains an usefull script to update the angular code using the swagger json definition published in an endpoint.
+
+Currently supports only generate code from `vader` integration server using the script `./refresh-api-vader.sh` contained in the root of the project
 
 ### Building
 
 To install the required dependencies and to build the typescript sources run:
+
 ```
 npm install
 npm run build
 ```
 
-### publishing
+### Publishing
 
-First build the package than run ```npm publish dist``` (don't forget to specify the `dist` folder!)
+The project is published by travis.ci
 
 ### consuming
 
@@ -19,36 +28,12 @@ Navigate to the folder of your consuming project and run one of next commands.
 _published:_
 
 ```
-npm install @greysystems-angular/mtc-mtc-ms-backoffice-api@1.0.0-SNAPSHOT.201811201209 --save
+npm install @greysystems-angular/mtc-mtc-ms-backoffice-api@{version} --save
 ```
-
-_without publishing (not recommended):_
-
-```
-npm install PATH_TO_GENERATED_PACKAGE/dist --save
-```
-
-_using `npm link`:_
-
-In PATH_TO_GENERATED_PACKAGE/dist:
-```
-npm link
-```
-
-In your project:
-```
-npm link @greysystems-angular/mtc-mtc-ms-backoffice-api
-```
-
-__Note for Windows users:__ The Angular CLI has troubles to use linked npm packages.
-Please refer to this issue https://github.com/angular/angular-cli/issues/8284 for a solution / workaround.
-Published packages are not effected by this issue.
-
 
 #### General usage
 
 In your Angular project:
-
 
 ```
 // without configuring providers
@@ -102,9 +87,11 @@ Note: The ApiModule is restricted to being instantiated once app wide.
 This is to ensure that all services are treated as singletons.
 
 #### Using multiple swagger files / APIs / ApiModules
+
 In order to use multiple `ApiModules` generated from different swagger files,
 you can create an alias name when importing the modules
 in order to avoid naming conflicts:
+
 ```
 import { ApiModule } from 'my-api-path';
 import { ApiModule as OtherApiModule } from 'my-other-api-path';
@@ -125,9 +112,9 @@ export class AppModule {
 }
 ```
 
-
 ### Set service base path
-If different than the generated base path, during app bootstrap, you can provide the base path to your service. 
+
+If different than the generated base path, during app bootstrap, you can provide the base path to your service.
 
 ```
 import { BASE_PATH } from '@greysystems-angular/mtc-mtc-ms-backoffice-api';
@@ -136,6 +123,7 @@ bootstrap(AppComponent, [
     { provide: BASE_PATH, useValue: 'https://your-web-service.com' },
 ]);
 ```
+
 or
 
 ```
@@ -150,8 +138,8 @@ import { BASE_PATH } from '@greysystems-angular/mtc-mtc-ms-backoffice-api';
 export class AppModule {}
 ```
 
-
 #### Using @angular/cli
+
 First extend your `src/environments/*.ts` files by adding the corresponding base path:
 
 ```
@@ -162,6 +150,7 @@ export const environment = {
 ```
 
 In the src/app/app.module.ts:
+
 ```
 import { BASE_PATH } from '@greysystems-angular/mtc-mtc-ms-backoffice-api';
 import { environment } from '../environments/environment';
@@ -175,4 +164,4 @@ import { environment } from '../environments/environment';
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
-```  
+```
