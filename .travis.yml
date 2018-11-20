@@ -8,5 +8,7 @@ before_install:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 script: npm run build 
 deploy: 
-  on: 
-    - branch IN (develop, master)
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^develop|master$
+
