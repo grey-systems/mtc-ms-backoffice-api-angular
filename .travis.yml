@@ -5,3 +5,5 @@ deploy:
   - skip_cleanup: true
     provider: script
     script: npm run build
+    on:
+      all_branches: true
