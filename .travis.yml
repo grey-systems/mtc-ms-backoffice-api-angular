@@ -1,9 +1,4 @@
 language: node_js
 node_js:
-  - "node"
-deploy:
-  - skip_cleanup: true
-    provider: script
-    script: npm run build
-    on:
-      all_branches: true
+  - "9"
+script: npm run build 
