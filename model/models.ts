@@ -4,6 +4,7 @@ export * from './agentBasic';
 export * from './agentSearchFilter';
 export * from './agentSearchResult';
 export * from './amount';
+export * from './beneficiary';
 export * from './composedTransferBasicInfo';
 export * from './createCustomerRequest';
 export * from './customer';
