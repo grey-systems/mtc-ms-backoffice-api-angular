@@ -22,8 +22,10 @@ import { FullTransferDetails } from '../model/fullTransferDetails';
 import { PaginatedResultComposedTransferBasicInfo } from '../model/paginatedResultComposedTransferBasicInfo';
 import { RestError } from '../model/restError';
 import { SearchRequest } from '../model/searchRequest';
+import { TransferBlockRequest } from '../model/transferBlockRequest';
 import { TransferNote } from '../model/transferNote';
 import { TransferNoteCreation } from '../model/transferNoteCreation';
+import { TransferReleaseRequest } from '../model/transferReleaseRequest';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -60,6 +62,61 @@ export class MtcTransferServiceControllerService {
         return false;
     }
 
+
+    /**
+     * blockTransfer
+     * 
+     * @param idTransfer idTransfer
+     * @param transferBlockRequest transferBlockRequest
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public blockTransferUsingPOST(idTransfer: number, transferBlockRequest: TransferBlockRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public blockTransferUsingPOST(idTransfer: number, transferBlockRequest: TransferBlockRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public blockTransferUsingPOST(idTransfer: number, transferBlockRequest: TransferBlockRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public blockTransferUsingPOST(idTransfer: number, transferBlockRequest: TransferBlockRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (idTransfer === null || idTransfer === undefined) {
+            throw new Error('Required parameter idTransfer was null or undefined when calling blockTransferUsingPOST.');
+        }
+        if (transferBlockRequest === null || transferBlockRequest === undefined) {
+            throw new Error('Required parameter transferBlockRequest was null or undefined when calling blockTransferUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/transfer/${encodeURIComponent(String(idTransfer))}/block`,
+            transferBlockRequest,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * createTransferNote
@@ -153,6 +210,61 @@ export class MtcTransferServiceControllerService {
         ];
 
         return this.httpClient.get<FullTransferDetails>(`${this.basePath}/transfer/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * releaseTransfer
+     * 
+     * @param idTransfer idTransfer
+     * @param transferReleaseRequest transferReleaseRequest
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public releaseTransferUsingPOST(idTransfer: number, transferReleaseRequest: TransferReleaseRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public releaseTransferUsingPOST(idTransfer: number, transferReleaseRequest: TransferReleaseRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public releaseTransferUsingPOST(idTransfer: number, transferReleaseRequest: TransferReleaseRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public releaseTransferUsingPOST(idTransfer: number, transferReleaseRequest: TransferReleaseRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (idTransfer === null || idTransfer === undefined) {
+            throw new Error('Required parameter idTransfer was null or undefined when calling releaseTransferUsingPOST.');
+        }
+        if (transferReleaseRequest === null || transferReleaseRequest === undefined) {
+            throw new Error('Required parameter transferReleaseRequest was null or undefined when calling releaseTransferUsingPOST.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<any>(`${this.basePath}/transfer/${encodeURIComponent(String(idTransfer))}/release`,
+            transferReleaseRequest,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
