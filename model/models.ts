@@ -14,6 +14,7 @@ export * from './exchangeRate';
 export * from './financialData';
 export * from './fiscalCode';
 export * from './fullTransferDetails';
+export * from './gsGeolocationCity';
 export * from './identityDocument';
 export * from './note';
 export * from './noteCreation';

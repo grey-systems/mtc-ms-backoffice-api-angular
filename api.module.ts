@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { MtcAgentControllerService } from './api/mtcAgentController.service';
 import { MtcCustomerControllerService } from './api/mtcCustomerController.service';
+import { MtcGsGeolocationControllerService } from './api/mtcGsGeolocationController.service';
 import { MtcNotesControllerService } from './api/mtcNotesController.service';
 import { MtcTransferServiceControllerService } from './api/mtcTransferServiceController.service';
 
@@ -15,6 +16,7 @@ import { MtcTransferServiceControllerService } from './api/mtcTransferServiceCon
   providers: [
     MtcAgentControllerService,
     MtcCustomerControllerService,
+    MtcGsGeolocationControllerService,
     MtcNotesControllerService,
     MtcTransferServiceControllerService ]
 })
