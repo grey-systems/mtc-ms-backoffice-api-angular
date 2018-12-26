@@ -7,6 +7,7 @@ import { MtcAgentControllerService } from './api/mtcAgentController.service';
 import { MtcCustomerControllerService } from './api/mtcCustomerController.service';
 import { MtcGsGeolocationControllerService } from './api/mtcGsGeolocationController.service';
 import { MtcNotesControllerService } from './api/mtcNotesController.service';
+import { MtcPricingControllerService } from './api/mtcPricingController.service';
 import { MtcTransferServiceControllerService } from './api/mtcTransferServiceController.service';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MtcTransferServiceControllerService } from './api/mtcTransferServiceCon
     MtcCustomerControllerService,
     MtcGsGeolocationControllerService,
     MtcNotesControllerService,
+    MtcPricingControllerService,
     MtcTransferServiceControllerService ]
 })
 export class ApiModule {
