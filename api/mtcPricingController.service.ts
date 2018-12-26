@@ -66,6 +66,7 @@ export class MtcPricingControllerService {
     /**
      * addCountryZoneMembersByTypeOfRuleAndId
      * 
+     * @param localCcy localCcy
      * @param scheme scheme
      * @param type type
      * @param id id
@@ -73,10 +74,13 @@ export class MtcPricingControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(scheme: string, type: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(scheme: string, type: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(scheme: string, type: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(scheme: string, type: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
+    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
+    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
+    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (localCcy === null || localCcy === undefined) {
+            throw new Error('Required parameter localCcy was null or undefined when calling addCountryZoneMembersByTypeOfRuleAndIdUsingPOST.');
+        }
         if (scheme === null || scheme === undefined) {
             throw new Error('Required parameter scheme was null or undefined when calling addCountryZoneMembersByTypeOfRuleAndIdUsingPOST.');
         }
@@ -255,6 +259,7 @@ export class MtcPricingControllerService {
     /**
      * deleteCountryZoneMembersByTypeOfRuleAndId
      * 
+     * @param localCcy localCcy
      * @param scheme scheme
      * @param type type
      * @param id id
@@ -262,10 +267,13 @@ export class MtcPricingControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(scheme: string, type: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(scheme: string, type: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(scheme: string, type: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(scheme: string, type: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
+    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
+    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
+    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (localCcy === null || localCcy === undefined) {
+            throw new Error('Required parameter localCcy was null or undefined when calling deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE.');
+        }
         if (scheme === null || scheme === undefined) {
             throw new Error('Required parameter scheme was null or undefined when calling deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE.');
         }
@@ -433,16 +441,20 @@ export class MtcPricingControllerService {
     /**
      * getCountryZoneByTypeOfRuleAndId
      * 
+     * @param localCcy localCcy
      * @param scheme scheme
      * @param type type
      * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<CountryZone>;
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CountryZone>>;
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CountryZone>>;
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<CountryZone>;
+    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CountryZone>>;
+    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CountryZone>>;
+    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (localCcy === null || localCcy === undefined) {
+            throw new Error('Required parameter localCcy was null or undefined when calling getCountryZoneByTypeOfRuleAndIdUsingGET.');
+        }
         if (scheme === null || scheme === undefined) {
             throw new Error('Required parameter scheme was null or undefined when calling getCountryZoneByTypeOfRuleAndIdUsingGET.');
         }
@@ -487,16 +499,20 @@ export class MtcPricingControllerService {
     /**
      * getCountryZoneMembersByTypeOfRuleAndId
      * 
+     * @param localCcy localCcy
      * @param scheme scheme
      * @param type type
      * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(scheme: string, type: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
+    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (localCcy === null || localCcy === undefined) {
+            throw new Error('Required parameter localCcy was null or undefined when calling getCountryZoneMembersByTypeOfRuleAndIdUsingGET.');
+        }
         if (scheme === null || scheme === undefined) {
             throw new Error('Required parameter scheme was null or undefined when calling getCountryZoneMembersByTypeOfRuleAndIdUsingGET.');
         }
@@ -541,16 +557,20 @@ export class MtcPricingControllerService {
     /**
      * getCountryZonesByTypeOfRule
      * 
+     * @param localCcy localCcy
      * @param scheme scheme
      * @param type type
      * @param internal internal
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCountryZonesByTypeOfRuleUsingGET(scheme: string, type: string, internal: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<CountryZone>>;
-    public getCountryZonesByTypeOfRuleUsingGET(scheme: string, type: string, internal: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryZone>>>;
-    public getCountryZonesByTypeOfRuleUsingGET(scheme: string, type: string, internal: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryZone>>>;
-    public getCountryZonesByTypeOfRuleUsingGET(scheme: string, type: string, internal: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<CountryZone>>;
+    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryZone>>>;
+    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryZone>>>;
+    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (localCcy === null || localCcy === undefined) {
+            throw new Error('Required parameter localCcy was null or undefined when calling getCountryZonesByTypeOfRuleUsingGET.');
+        }
         if (scheme === null || scheme === undefined) {
             throw new Error('Required parameter scheme was null or undefined when calling getCountryZonesByTypeOfRuleUsingGET.');
         }
