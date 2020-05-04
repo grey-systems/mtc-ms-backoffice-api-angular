@@ -31,7 +31,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class MtcAgentControllerService {
 
-    protected basePath = 'https://vader:9003';
+    protected basePath = 'https://mtc-ms-backoffice-api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -71,6 +71,7 @@ export class MtcAgentControllerService {
     public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AgentBasic>>>;
     public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AgentBasic>>>;
     public bulkAgentBasicDataUsingGET(idAgentList: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (idAgentList === null || idAgentList === undefined) {
             throw new Error('Required parameter idAgentList was null or undefined when calling bulkAgentBasicDataUsingGET.');
         }
@@ -78,7 +79,7 @@ export class MtcAgentControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -121,6 +122,7 @@ export class MtcAgentControllerService {
     public getAgentBasicDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AgentBasic>>;
     public getAgentBasicDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AgentBasic>>;
     public getAgentBasicDataUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getAgentBasicDataUsingGET.');
         }
@@ -128,7 +130,7 @@ export class MtcAgentControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -167,6 +169,7 @@ export class MtcAgentControllerService {
     public getAgentDetailDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Agent>>;
     public getAgentDetailDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Agent>>;
     public getAgentDetailDataUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getAgentDetailDataUsingGET.');
         }
@@ -174,7 +177,7 @@ export class MtcAgentControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -213,6 +216,7 @@ export class MtcAgentControllerService {
     public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<AgentSearchResult>>>;
     public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<AgentSearchResult>>>;
     public searchAgentsUsingFilterUsingPOST(filter: AgentSearchFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (filter === null || filter === undefined) {
             throw new Error('Required parameter filter was null or undefined when calling searchAgentsUsingFilterUsingPOST.');
         }
@@ -220,7 +224,7 @@ export class MtcAgentControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 

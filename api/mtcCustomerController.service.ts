@@ -39,7 +39,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class MtcCustomerControllerService {
 
-    protected basePath = 'https://vader:9003';
+    protected basePath = 'https://mtc-ms-backoffice-api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -81,12 +81,15 @@ export class MtcCustomerControllerService {
     public createCustomerIdentityDocumentFileUsingPOST(id: number, idDoc: number, file: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
     public createCustomerIdentityDocumentFileUsingPOST(id: number, idDoc: number, file: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
     public createCustomerIdentityDocumentFileUsingPOST(id: number, idDoc: number, file: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling createCustomerIdentityDocumentFileUsingPOST.');
         }
+
         if (idDoc === null || idDoc === undefined) {
             throw new Error('Required parameter idDoc was null or undefined when calling createCustomerIdentityDocumentFileUsingPOST.');
         }
+
         if (file === null || file === undefined) {
             throw new Error('Required parameter file was null or undefined when calling createCustomerIdentityDocumentFileUsingPOST.');
         }
@@ -94,7 +97,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -153,9 +156,11 @@ export class MtcCustomerControllerService {
     public createCustomerIdentityDocumentUsingPOST(id: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
     public createCustomerIdentityDocumentUsingPOST(id: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     public createCustomerIdentityDocumentUsingPOST(id: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling createCustomerIdentityDocumentUsingPOST.');
         }
+
         if (identityDocumentDetail === null || identityDocumentDetail === undefined) {
             throw new Error('Required parameter identityDocumentDetail was null or undefined when calling createCustomerIdentityDocumentUsingPOST.');
         }
@@ -163,7 +168,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -208,9 +213,11 @@ export class MtcCustomerControllerService {
     public createCustomerNoteUsingPOST(id: number, creationNote: NoteCreation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
     public createCustomerNoteUsingPOST(id: number, creationNote: NoteCreation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     public createCustomerNoteUsingPOST(id: number, creationNote: NoteCreation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling createCustomerNoteUsingPOST.');
         }
+
         if (creationNote === null || creationNote === undefined) {
             throw new Error('Required parameter creationNote was null or undefined when calling createCustomerNoteUsingPOST.');
         }
@@ -218,7 +225,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -262,6 +269,7 @@ export class MtcCustomerControllerService {
     public createCustomerUsingPOST(request: CreateCustomerRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
     public createCustomerUsingPOST(request: CreateCustomerRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     public createCustomerUsingPOST(request: CreateCustomerRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling createCustomerUsingPOST.');
         }
@@ -269,7 +277,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -313,6 +321,7 @@ export class MtcCustomerControllerService {
     public getCustomerEssentialDataByIdsUsingGET(ids: Array<number>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CustomerEssentialData>>>;
     public getCustomerEssentialDataByIdsUsingGET(ids: Array<number>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CustomerEssentialData>>>;
     public getCustomerEssentialDataByIdsUsingGET(ids: Array<number>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (ids === null || ids === undefined) {
             throw new Error('Required parameter ids was null or undefined when calling getCustomerEssentialDataByIdsUsingGET.');
         }
@@ -327,7 +336,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -367,6 +376,7 @@ export class MtcCustomerControllerService {
     public getCustomerEssentialDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CustomerBasicData>>;
     public getCustomerEssentialDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CustomerBasicData>>;
     public getCustomerEssentialDataUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getCustomerEssentialDataUsingGET.');
         }
@@ -374,7 +384,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -413,6 +423,7 @@ export class MtcCustomerControllerService {
     public getCustomerFullDataUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Customer>>;
     public getCustomerFullDataUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Customer>>;
     public getCustomerFullDataUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getCustomerFullDataUsingGET.');
         }
@@ -420,7 +431,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -460,9 +471,11 @@ export class MtcCustomerControllerService {
     public getCustomerIdentityDocumentByIdUsingGET(id: number, idDoc: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TheIdentityDocument>>;
     public getCustomerIdentityDocumentByIdUsingGET(id: number, idDoc: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TheIdentityDocument>>;
     public getCustomerIdentityDocumentByIdUsingGET(id: number, idDoc: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getCustomerIdentityDocumentByIdUsingGET.');
         }
+
         if (idDoc === null || idDoc === undefined) {
             throw new Error('Required parameter idDoc was null or undefined when calling getCustomerIdentityDocumentByIdUsingGET.');
         }
@@ -470,7 +483,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -510,9 +523,11 @@ export class MtcCustomerControllerService {
     public getCustomerIdentityDocumentFileByIdUsingGET(id: number, idDoc: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
     public getCustomerIdentityDocumentFileByIdUsingGET(id: number, idDoc: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
     public getCustomerIdentityDocumentFileByIdUsingGET(id: number, idDoc: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getCustomerIdentityDocumentFileByIdUsingGET.');
         }
+
         if (idDoc === null || idDoc === undefined) {
             throw new Error('Required parameter idDoc was null or undefined when calling getCustomerIdentityDocumentFileByIdUsingGET.');
         }
@@ -520,7 +535,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -559,6 +574,7 @@ export class MtcCustomerControllerService {
     public getCustomerIdentityDocumentsUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TheIdentityDocument>>>;
     public getCustomerIdentityDocumentsUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TheIdentityDocument>>>;
     public getCustomerIdentityDocumentsUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getCustomerIdentityDocumentsUsingGET.');
         }
@@ -566,7 +582,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -605,6 +621,7 @@ export class MtcCustomerControllerService {
     public searchBeneficiariesByOwnerUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Beneficiary>>>;
     public searchBeneficiariesByOwnerUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Beneficiary>>>;
     public searchBeneficiariesByOwnerUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling searchBeneficiariesByOwnerUsingGET.');
         }
@@ -612,7 +629,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -651,6 +668,7 @@ export class MtcCustomerControllerService {
     public searchCustomersUsingPOST(request: SearchCustomerRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedResultSearchCustomerResponse>>;
     public searchCustomersUsingPOST(request: SearchCustomerRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedResultSearchCustomerResponse>>;
     public searchCustomersUsingPOST(request: SearchCustomerRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling searchCustomersUsingPOST.');
         }
@@ -658,7 +676,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -702,6 +720,7 @@ export class MtcCustomerControllerService {
     public searchNotesByCustomerIdUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Note>>>;
     public searchNotesByCustomerIdUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Note>>>;
     public searchNotesByCustomerIdUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling searchNotesByCustomerIdUsingGET.');
         }
@@ -709,7 +728,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -750,12 +769,15 @@ export class MtcCustomerControllerService {
     public updateCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
     public updateCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     public updateCustomerIdentityDocumentUsingPUT(id: number, idDoc: number, identityDocumentDetail: TheFullIdentityDocumentInformation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateCustomerIdentityDocumentUsingPUT.');
         }
+
         if (idDoc === null || idDoc === undefined) {
             throw new Error('Required parameter idDoc was null or undefined when calling updateCustomerIdentityDocumentUsingPUT.');
         }
+
         if (identityDocumentDetail === null || identityDocumentDetail === undefined) {
             throw new Error('Required parameter identityDocumentDetail was null or undefined when calling updateCustomerIdentityDocumentUsingPUT.');
         }
@@ -763,7 +785,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -808,9 +830,11 @@ export class MtcCustomerControllerService {
     public updateCustomerUsingPUT(id: number, request: UpdateCustomerRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
     public updateCustomerUsingPUT(id: number, request: UpdateCustomerRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     public updateCustomerUsingPUT(id: number, request: UpdateCustomerRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateCustomerUsingPUT.');
         }
+
         if (request === null || request === undefined) {
             throw new Error('Required parameter request was null or undefined when calling updateCustomerUsingPUT.');
         }
@@ -818,7 +842,7 @@ export class MtcCustomerControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 

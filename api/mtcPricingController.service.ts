@@ -22,7 +22,6 @@ import { CountryZone } from '../model/countryZone';
 import { CreatePolicy } from '../model/createPolicy';
 import { CreateRule } from '../model/createRule';
 import { Policy } from '../model/policy';
-import { ResponseEntity } from '../model/responseEntity';
 import { RestError } from '../model/restError';
 import { Rule } from '../model/rule';
 import { RuleParamDescriptor } from '../model/ruleParamDescriptor';
@@ -34,7 +33,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class MtcPricingControllerService {
 
-    protected basePath = 'https://vader:9003';
+    protected basePath = 'https://mtc-ms-backoffice-api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -64,40 +63,35 @@ export class MtcPricingControllerService {
 
 
     /**
-     * addCountryZoneMembersByTypeOfRuleAndId
+     * addCountryZoneMembersBySchemeAndId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param id id
      * @param iso iso
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
-    public addCountryZoneMembersByTypeOfRuleAndIdUsingPOST(localCcy: string, scheme: string, type: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling addCountryZoneMembersByTypeOfRuleAndIdUsingPOST.');
-        }
+    public addCountryZoneMembersBySchemeAndIdUsingPOST(scheme: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public addCountryZoneMembersBySchemeAndIdUsingPOST(scheme: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public addCountryZoneMembersBySchemeAndIdUsingPOST(scheme: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public addCountryZoneMembersBySchemeAndIdUsingPOST(scheme: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling addCountryZoneMembersByTypeOfRuleAndIdUsingPOST.');
+            throw new Error('Required parameter scheme was null or undefined when calling addCountryZoneMembersBySchemeAndIdUsingPOST.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling addCountryZoneMembersByTypeOfRuleAndIdUsingPOST.');
-        }
+
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling addCountryZoneMembersByTypeOfRuleAndIdUsingPOST.');
+            throw new Error('Required parameter id was null or undefined when calling addCountryZoneMembersBySchemeAndIdUsingPOST.');
         }
+
         if (iso === null || iso === undefined) {
-            throw new Error('Required parameter iso was null or undefined when calling addCountryZoneMembersByTypeOfRuleAndIdUsingPOST.');
+            throw new Error('Required parameter iso was null or undefined when calling addCountryZoneMembersBySchemeAndIdUsingPOST.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -115,7 +109,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.post<ResponseEntity>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/country-zones/${encodeURIComponent(String(id))}/members/${encodeURIComponent(String(iso))}`,
+        return this.httpClient.post<any>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/country-zones/${encodeURIComponent(String(id))}/members/${encodeURIComponent(String(iso))}`,
             null,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -127,40 +121,35 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * createPolicyByRuleId
+     * createPolicyBySchemeAndRuleId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param ruleId ruleId
      * @param policy policy
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createPolicyByRuleIdUsingPOST(localCcy: string, scheme: string, type: string, ruleId: number, policy: CreatePolicy, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public createPolicyByRuleIdUsingPOST(localCcy: string, scheme: string, type: string, ruleId: number, policy: CreatePolicy, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public createPolicyByRuleIdUsingPOST(localCcy: string, scheme: string, type: string, ruleId: number, policy: CreatePolicy, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public createPolicyByRuleIdUsingPOST(localCcy: string, scheme: string, type: string, ruleId: number, policy: CreatePolicy, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling createPolicyByRuleIdUsingPOST.');
-        }
+    public createPolicyBySchemeAndRuleIdUsingPOST(scheme: string, ruleId: number, policy: CreatePolicy, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public createPolicyBySchemeAndRuleIdUsingPOST(scheme: string, ruleId: number, policy: CreatePolicy, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public createPolicyBySchemeAndRuleIdUsingPOST(scheme: string, ruleId: number, policy: CreatePolicy, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public createPolicyBySchemeAndRuleIdUsingPOST(scheme: string, ruleId: number, policy: CreatePolicy, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling createPolicyByRuleIdUsingPOST.');
+            throw new Error('Required parameter scheme was null or undefined when calling createPolicyBySchemeAndRuleIdUsingPOST.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling createPolicyByRuleIdUsingPOST.');
-        }
+
         if (ruleId === null || ruleId === undefined) {
-            throw new Error('Required parameter ruleId was null or undefined when calling createPolicyByRuleIdUsingPOST.');
+            throw new Error('Required parameter ruleId was null or undefined when calling createPolicyBySchemeAndRuleIdUsingPOST.');
         }
+
         if (policy === null || policy === undefined) {
-            throw new Error('Required parameter policy was null or undefined when calling createPolicyByRuleIdUsingPOST.');
+            throw new Error('Required parameter policy was null or undefined when calling createPolicyBySchemeAndRuleIdUsingPOST.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -182,7 +171,7 @@ export class MtcPricingControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<number>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/rule/${encodeURIComponent(String(ruleId))}/policy`,
+        return this.httpClient.post<number>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/rules/${encodeURIComponent(String(ruleId))}/policies`,
             policy,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -194,36 +183,40 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * createRuleByTypeAndScheme
+     * createRuleBySchemeAndTypeAndCcy
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
      * @param type type
+     * @param localCcy localCcy
      * @param createRule createRule
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createRuleByTypeAndSchemeUsingPOST(localCcy: string, scheme: string, type: string, createRule: CreateRule, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public createRuleByTypeAndSchemeUsingPOST(localCcy: string, scheme: string, type: string, createRule: CreateRule, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public createRuleByTypeAndSchemeUsingPOST(localCcy: string, scheme: string, type: string, createRule: CreateRule, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public createRuleByTypeAndSchemeUsingPOST(localCcy: string, scheme: string, type: string, createRule: CreateRule, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling createRuleByTypeAndSchemeUsingPOST.');
-        }
+    public createRuleBySchemeAndTypeAndCcyUsingPOST(scheme: string, type: string, localCcy: string, createRule: CreateRule, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public createRuleBySchemeAndTypeAndCcyUsingPOST(scheme: string, type: string, localCcy: string, createRule: CreateRule, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public createRuleBySchemeAndTypeAndCcyUsingPOST(scheme: string, type: string, localCcy: string, createRule: CreateRule, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public createRuleBySchemeAndTypeAndCcyUsingPOST(scheme: string, type: string, localCcy: string, createRule: CreateRule, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling createRuleByTypeAndSchemeUsingPOST.');
+            throw new Error('Required parameter scheme was null or undefined when calling createRuleBySchemeAndTypeAndCcyUsingPOST.');
         }
+
         if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling createRuleByTypeAndSchemeUsingPOST.');
+            throw new Error('Required parameter type was null or undefined when calling createRuleBySchemeAndTypeAndCcyUsingPOST.');
         }
+
+        if (localCcy === null || localCcy === undefined) {
+            throw new Error('Required parameter localCcy was null or undefined when calling createRuleBySchemeAndTypeAndCcyUsingPOST.');
+        }
+
         if (createRule === null || createRule === undefined) {
-            throw new Error('Required parameter createRule was null or undefined when calling createRuleByTypeAndSchemeUsingPOST.');
+            throw new Error('Required parameter createRule was null or undefined when calling createRuleBySchemeAndTypeAndCcyUsingPOST.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -245,7 +238,7 @@ export class MtcPricingControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<number>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/rule`,
+        return this.httpClient.post<number>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/rules/types/${encodeURIComponent(String(type))}/ccy/${encodeURIComponent(String(localCcy))}`,
             createRule,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -257,40 +250,35 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * deleteCountryZoneMembersByTypeOfRuleAndId
+     * deleteCountryZoneMembersBySchemeAndId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param id id
      * @param iso iso
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
-    public deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE.');
-        }
+    public deleteCountryZoneMembersBySchemeAndIdUsingDELETE(scheme: string, id: number, iso: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteCountryZoneMembersBySchemeAndIdUsingDELETE(scheme: string, id: number, iso: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteCountryZoneMembersBySchemeAndIdUsingDELETE(scheme: string, id: number, iso: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteCountryZoneMembersBySchemeAndIdUsingDELETE(scheme: string, id: number, iso: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE.');
+            throw new Error('Required parameter scheme was null or undefined when calling deleteCountryZoneMembersBySchemeAndIdUsingDELETE.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE.');
-        }
+
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE.');
+            throw new Error('Required parameter id was null or undefined when calling deleteCountryZoneMembersBySchemeAndIdUsingDELETE.');
         }
+
         if (iso === null || iso === undefined) {
-            throw new Error('Required parameter iso was null or undefined when calling deleteCountryZoneMembersByTypeOfRuleAndIdUsingDELETE.');
+            throw new Error('Required parameter iso was null or undefined when calling deleteCountryZoneMembersBySchemeAndIdUsingDELETE.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -308,7 +296,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.delete<ResponseEntity>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/country-zones/${encodeURIComponent(String(id))}/members/${encodeURIComponent(String(iso))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/country-zones/${encodeURIComponent(String(id))}/members/${encodeURIComponent(String(iso))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -319,40 +307,35 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * deletePolicyById
+     * deletePolicyBySchemeAndId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param ruleId ruleId
      * @param policyId policyId
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deletePolicyByIdUsingDELETE(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
-    public deletePolicyByIdUsingDELETE(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
-    public deletePolicyByIdUsingDELETE(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
-    public deletePolicyByIdUsingDELETE(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling deletePolicyByIdUsingDELETE.');
-        }
+    public deletePolicyBySchemeAndIdUsingDELETE(scheme: string, ruleId: number, policyId: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deletePolicyBySchemeAndIdUsingDELETE(scheme: string, ruleId: number, policyId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deletePolicyBySchemeAndIdUsingDELETE(scheme: string, ruleId: number, policyId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deletePolicyBySchemeAndIdUsingDELETE(scheme: string, ruleId: number, policyId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling deletePolicyByIdUsingDELETE.');
+            throw new Error('Required parameter scheme was null or undefined when calling deletePolicyBySchemeAndIdUsingDELETE.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling deletePolicyByIdUsingDELETE.');
-        }
+
         if (ruleId === null || ruleId === undefined) {
-            throw new Error('Required parameter ruleId was null or undefined when calling deletePolicyByIdUsingDELETE.');
+            throw new Error('Required parameter ruleId was null or undefined when calling deletePolicyBySchemeAndIdUsingDELETE.');
         }
+
         if (policyId === null || policyId === undefined) {
-            throw new Error('Required parameter policyId was null or undefined when calling deletePolicyByIdUsingDELETE.');
+            throw new Error('Required parameter policyId was null or undefined when calling deletePolicyBySchemeAndIdUsingDELETE.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -370,7 +353,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.delete<ResponseEntity>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/rule/${encodeURIComponent(String(ruleId))}/policy/${encodeURIComponent(String(policyId))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/rules/${encodeURIComponent(String(ruleId))}/policies/${encodeURIComponent(String(policyId))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -381,36 +364,30 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * deleteRuleById
+     * deleteRuleBySchemaAndId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteRuleByIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
-    public deleteRuleByIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
-    public deleteRuleByIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
-    public deleteRuleByIdUsingDELETE(localCcy: string, scheme: string, type: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling deleteRuleByIdUsingDELETE.');
-        }
+    public deleteRuleBySchemaAndIdUsingDELETE(scheme: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteRuleBySchemaAndIdUsingDELETE(scheme: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteRuleBySchemaAndIdUsingDELETE(scheme: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteRuleBySchemaAndIdUsingDELETE(scheme: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling deleteRuleByIdUsingDELETE.');
+            throw new Error('Required parameter scheme was null or undefined when calling deleteRuleBySchemaAndIdUsingDELETE.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling deleteRuleByIdUsingDELETE.');
-        }
+
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteRuleByIdUsingDELETE.');
+            throw new Error('Required parameter id was null or undefined when calling deleteRuleBySchemaAndIdUsingDELETE.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -428,7 +405,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.delete<ResponseEntity>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/rule/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/rules/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -439,36 +416,30 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * getCountryZoneByTypeOfRuleAndId
+     * getCountryZoneBySchemeAndId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<CountryZone>;
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CountryZone>>;
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CountryZone>>;
-    public getCountryZoneByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling getCountryZoneByTypeOfRuleAndIdUsingGET.');
-        }
+    public getCountryZoneBySchemeAndIdUsingGET(scheme: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<CountryZone>;
+    public getCountryZoneBySchemeAndIdUsingGET(scheme: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CountryZone>>;
+    public getCountryZoneBySchemeAndIdUsingGET(scheme: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CountryZone>>;
+    public getCountryZoneBySchemeAndIdUsingGET(scheme: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling getCountryZoneByTypeOfRuleAndIdUsingGET.');
+            throw new Error('Required parameter scheme was null or undefined when calling getCountryZoneBySchemeAndIdUsingGET.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling getCountryZoneByTypeOfRuleAndIdUsingGET.');
-        }
+
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getCountryZoneByTypeOfRuleAndIdUsingGET.');
+            throw new Error('Required parameter id was null or undefined when calling getCountryZoneBySchemeAndIdUsingGET.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -486,7 +457,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<CountryZone>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/country-zones/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<CountryZone>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/country-zones/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -497,36 +468,30 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * getCountryZoneMembersByTypeOfRuleAndId
+     * getCountryZoneMembersByBySchemeAndId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param id id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
-    public getCountryZoneMembersByTypeOfRuleAndIdUsingGET(localCcy: string, scheme: string, type: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling getCountryZoneMembersByTypeOfRuleAndIdUsingGET.');
-        }
+    public getCountryZoneMembersByBySchemeAndIdUsingGET(scheme: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+    public getCountryZoneMembersByBySchemeAndIdUsingGET(scheme: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
+    public getCountryZoneMembersByBySchemeAndIdUsingGET(scheme: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public getCountryZoneMembersByBySchemeAndIdUsingGET(scheme: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling getCountryZoneMembersByTypeOfRuleAndIdUsingGET.');
+            throw new Error('Required parameter scheme was null or undefined when calling getCountryZoneMembersByBySchemeAndIdUsingGET.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling getCountryZoneMembersByTypeOfRuleAndIdUsingGET.');
-        }
+
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getCountryZoneMembersByTypeOfRuleAndIdUsingGET.');
+            throw new Error('Required parameter id was null or undefined when calling getCountryZoneMembersByBySchemeAndIdUsingGET.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -544,7 +509,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<string>>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/country-zones/${encodeURIComponent(String(id))}/members`,
+        return this.httpClient.get<Array<string>>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/country-zones/${encodeURIComponent(String(id))}/members`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -555,31 +520,27 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * getCountryZonesByTypeOfRule
+     * getCountryZonesBySchemeAndTypeOfRule
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
      * @param type type
      * @param internal internal
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<CountryZone>>;
-    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryZone>>>;
-    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryZone>>>;
-    public getCountryZonesByTypeOfRuleUsingGET(localCcy: string, scheme: string, type: string, internal: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling getCountryZonesByTypeOfRuleUsingGET.');
-        }
+    public getCountryZonesBySchemeAndTypeOfRuleUsingGET(scheme: string, type: string, internal?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<CountryZone>>;
+    public getCountryZonesBySchemeAndTypeOfRuleUsingGET(scheme: string, type: string, internal?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CountryZone>>>;
+    public getCountryZonesBySchemeAndTypeOfRuleUsingGET(scheme: string, type: string, internal?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CountryZone>>>;
+    public getCountryZonesBySchemeAndTypeOfRuleUsingGET(scheme: string, type: string, internal?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling getCountryZonesByTypeOfRuleUsingGET.');
+            throw new Error('Required parameter scheme was null or undefined when calling getCountryZonesBySchemeAndTypeOfRuleUsingGET.');
         }
+
         if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling getCountryZonesByTypeOfRuleUsingGET.');
+            throw new Error('Required parameter type was null or undefined when calling getCountryZonesBySchemeAndTypeOfRuleUsingGET.');
         }
-        if (internal === null || internal === undefined) {
-            throw new Error('Required parameter internal was null or undefined when calling getCountryZonesByTypeOfRuleUsingGET.');
-        }
+
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (internal !== undefined && internal !== null) {
@@ -589,7 +550,7 @@ export class MtcPricingControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -607,7 +568,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<CountryZone>>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/country-zones${encodeURIComponent(String(internal))}`,
+        return this.httpClient.get<Array<CountryZone>>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/country-zones/rule-type/${encodeURIComponent(String(type))}${encodeURIComponent(String(internal))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -619,36 +580,30 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * getPoliciesByRuleId
+     * getPoliciesBySchemeAndRuleId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
      * @param ruleId ruleId
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getPoliciesByRuleIdUsingGET(localCcy: string, scheme: string, type: string, ruleId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Policy>>;
-    public getPoliciesByRuleIdUsingGET(localCcy: string, scheme: string, type: string, ruleId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Policy>>>;
-    public getPoliciesByRuleIdUsingGET(localCcy: string, scheme: string, type: string, ruleId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Policy>>>;
-    public getPoliciesByRuleIdUsingGET(localCcy: string, scheme: string, type: string, ruleId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling getPoliciesByRuleIdUsingGET.');
-        }
+    public getPoliciesBySchemeAndRuleIdUsingGET(scheme: string, ruleId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Policy>>;
+    public getPoliciesBySchemeAndRuleIdUsingGET(scheme: string, ruleId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Policy>>>;
+    public getPoliciesBySchemeAndRuleIdUsingGET(scheme: string, ruleId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Policy>>>;
+    public getPoliciesBySchemeAndRuleIdUsingGET(scheme: string, ruleId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling getPoliciesByRuleIdUsingGET.');
+            throw new Error('Required parameter scheme was null or undefined when calling getPoliciesBySchemeAndRuleIdUsingGET.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling getPoliciesByRuleIdUsingGET.');
-        }
+
         if (ruleId === null || ruleId === undefined) {
-            throw new Error('Required parameter ruleId was null or undefined when calling getPoliciesByRuleIdUsingGET.');
+            throw new Error('Required parameter ruleId was null or undefined when calling getPoliciesBySchemeAndRuleIdUsingGET.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -666,7 +621,64 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<Policy>>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/rule/${encodeURIComponent(String(ruleId))}/policy`,
+        return this.httpClient.get<Array<Policy>>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/rules/${encodeURIComponent(String(ruleId))}/policies`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getRuleBySchemeAnRuleTypeAndCcy
+     * 
+     * @param scheme scheme
+     * @param type type
+     * @param localCcy localCcy
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getRuleBySchemeAnRuleTypeAndCcyUsingGET(scheme: string, type: string, localCcy: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Rule>>;
+    public getRuleBySchemeAnRuleTypeAndCcyUsingGET(scheme: string, type: string, localCcy: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Rule>>>;
+    public getRuleBySchemeAnRuleTypeAndCcyUsingGET(scheme: string, type: string, localCcy: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Rule>>>;
+    public getRuleBySchemeAnRuleTypeAndCcyUsingGET(scheme: string, type: string, localCcy: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (scheme === null || scheme === undefined) {
+            throw new Error('Required parameter scheme was null or undefined when calling getRuleBySchemeAnRuleTypeAndCcyUsingGET.');
+        }
+
+        if (type === null || type === undefined) {
+            throw new Error('Required parameter type was null or undefined when calling getRuleBySchemeAnRuleTypeAndCcyUsingGET.');
+        }
+
+        if (localCcy === null || localCcy === undefined) {
+            throw new Error('Required parameter localCcy was null or undefined when calling getRuleBySchemeAnRuleTypeAndCcyUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Authorization) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+
+        return this.httpClient.get<Array<Rule>>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/rules/types/${encodeURIComponent(String(type))}/ccy/${encodeURIComponent(String(localCcy))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -679,18 +691,15 @@ export class MtcPricingControllerService {
     /**
      * getRuleScheme
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getRuleSchemeUsingGET(localCcy: string, scheme: string, observe?: 'body', reportProgress?: boolean): Observable<Array<RuleParamDescriptor>>;
-    public getRuleSchemeUsingGET(localCcy: string, scheme: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RuleParamDescriptor>>>;
-    public getRuleSchemeUsingGET(localCcy: string, scheme: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RuleParamDescriptor>>>;
-    public getRuleSchemeUsingGET(localCcy: string, scheme: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling getRuleSchemeUsingGET.');
-        }
+    public getRuleSchemeUsingGET(scheme: string, observe?: 'body', reportProgress?: boolean): Observable<Array<RuleParamDescriptor>>;
+    public getRuleSchemeUsingGET(scheme: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<RuleParamDescriptor>>>;
+    public getRuleSchemeUsingGET(scheme: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<RuleParamDescriptor>>>;
+    public getRuleSchemeUsingGET(scheme: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
             throw new Error('Required parameter scheme was null or undefined when calling getRuleSchemeUsingGET.');
         }
@@ -698,7 +707,7 @@ export class MtcPricingControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -716,7 +725,7 @@ export class MtcPricingControllerService {
             'application/json'
         ];
 
-        return this.httpClient.get<Array<RuleParamDescriptor>>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/scheme`,
+        return this.httpClient.get<Array<RuleParamDescriptor>>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -727,98 +736,40 @@ export class MtcPricingControllerService {
     }
 
     /**
-     * getRulesByTypeAndScheme
+     * updatePolicyBySchemeAndRuleId
      * 
-     * @param localCcy localCcy
      * @param scheme scheme
-     * @param type type
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getRulesByTypeAndSchemeUsingGET(localCcy: string, scheme: string, type: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Rule>>;
-    public getRulesByTypeAndSchemeUsingGET(localCcy: string, scheme: string, type: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Rule>>>;
-    public getRulesByTypeAndSchemeUsingGET(localCcy: string, scheme: string, type: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Rule>>>;
-    public getRulesByTypeAndSchemeUsingGET(localCcy: string, scheme: string, type: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling getRulesByTypeAndSchemeUsingGET.');
-        }
-        if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling getRulesByTypeAndSchemeUsingGET.');
-        }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling getRulesByTypeAndSchemeUsingGET.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<Array<Rule>>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/rule`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * updatePolicyByRuleId
-     * 
-     * @param localCcy localCcy
-     * @param scheme scheme
-     * @param type type
      * @param ruleId ruleId
      * @param policyId policyId
      * @param policy policy
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updatePolicyByRuleIdUsingPUT(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, policy: CreatePolicy, observe?: 'body', reportProgress?: boolean): Observable<ResponseEntity>;
-    public updatePolicyByRuleIdUsingPUT(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, policy: CreatePolicy, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResponseEntity>>;
-    public updatePolicyByRuleIdUsingPUT(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, policy: CreatePolicy, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResponseEntity>>;
-    public updatePolicyByRuleIdUsingPUT(localCcy: string, scheme: string, type: string, ruleId: number, policyId: number, policy: CreatePolicy, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (localCcy === null || localCcy === undefined) {
-            throw new Error('Required parameter localCcy was null or undefined when calling updatePolicyByRuleIdUsingPUT.');
-        }
+    public updatePolicyBySchemeAndRuleIdUsingPUT(scheme: string, ruleId: number, policyId: number, policy: CreatePolicy, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public updatePolicyBySchemeAndRuleIdUsingPUT(scheme: string, ruleId: number, policyId: number, policy: CreatePolicy, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public updatePolicyBySchemeAndRuleIdUsingPUT(scheme: string, ruleId: number, policyId: number, policy: CreatePolicy, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public updatePolicyBySchemeAndRuleIdUsingPUT(scheme: string, ruleId: number, policyId: number, policy: CreatePolicy, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (scheme === null || scheme === undefined) {
-            throw new Error('Required parameter scheme was null or undefined when calling updatePolicyByRuleIdUsingPUT.');
+            throw new Error('Required parameter scheme was null or undefined when calling updatePolicyBySchemeAndRuleIdUsingPUT.');
         }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling updatePolicyByRuleIdUsingPUT.');
-        }
+
         if (ruleId === null || ruleId === undefined) {
-            throw new Error('Required parameter ruleId was null or undefined when calling updatePolicyByRuleIdUsingPUT.');
+            throw new Error('Required parameter ruleId was null or undefined when calling updatePolicyBySchemeAndRuleIdUsingPUT.');
         }
+
         if (policyId === null || policyId === undefined) {
-            throw new Error('Required parameter policyId was null or undefined when calling updatePolicyByRuleIdUsingPUT.');
+            throw new Error('Required parameter policyId was null or undefined when calling updatePolicyBySchemeAndRuleIdUsingPUT.');
         }
+
         if (policy === null || policy === undefined) {
-            throw new Error('Required parameter policy was null or undefined when calling updatePolicyByRuleIdUsingPUT.');
+            throw new Error('Required parameter policy was null or undefined when calling updatePolicyBySchemeAndRuleIdUsingPUT.');
         }
 
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -840,7 +791,7 @@ export class MtcPricingControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<ResponseEntity>(`${this.basePath}/pricing/${encodeURIComponent(String(localCcy))}/${encodeURIComponent(String(scheme))}/${encodeURIComponent(String(type))}/rule/${encodeURIComponent(String(ruleId))}/policy/${encodeURIComponent(String(policyId))}`,
+        return this.httpClient.put<any>(`${this.basePath}/pricing/schemes/${encodeURIComponent(String(scheme))}/rules/${encodeURIComponent(String(ruleId))}/policies/${encodeURIComponent(String(policyId))}`,
             policy,
             {
                 withCredentials: this.configuration.withCredentials,

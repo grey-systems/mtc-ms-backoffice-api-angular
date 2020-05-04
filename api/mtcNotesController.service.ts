@@ -29,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class MtcNotesControllerService {
 
-    protected basePath = 'https://vader:9003';
+    protected basePath = 'https://mtc-ms-backoffice-api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

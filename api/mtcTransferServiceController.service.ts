@@ -34,7 +34,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class MtcTransferServiceControllerService {
 
-    protected basePath = 'https://vader:9003';
+    protected basePath = 'https://mtc-ms-backoffice-api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -75,9 +75,11 @@ export class MtcTransferServiceControllerService {
     public blockTransferUsingPOST(idTransfer: number, transferBlockRequest: TransferBlockRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public blockTransferUsingPOST(idTransfer: number, transferBlockRequest: TransferBlockRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public blockTransferUsingPOST(idTransfer: number, transferBlockRequest: TransferBlockRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (idTransfer === null || idTransfer === undefined) {
             throw new Error('Required parameter idTransfer was null or undefined when calling blockTransferUsingPOST.');
         }
+
         if (transferBlockRequest === null || transferBlockRequest === undefined) {
             throw new Error('Required parameter transferBlockRequest was null or undefined when calling blockTransferUsingPOST.');
         }
@@ -85,7 +87,7 @@ export class MtcTransferServiceControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -130,9 +132,11 @@ export class MtcTransferServiceControllerService {
     public createTransferNoteUsingPOST(id: number, creationNote: TransferNoteCreation, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
     public createTransferNoteUsingPOST(id: number, creationNote: TransferNoteCreation, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     public createTransferNoteUsingPOST(id: number, creationNote: TransferNoteCreation, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling createTransferNoteUsingPOST.');
         }
+
         if (creationNote === null || creationNote === undefined) {
             throw new Error('Required parameter creationNote was null or undefined when calling createTransferNoteUsingPOST.');
         }
@@ -140,7 +144,7 @@ export class MtcTransferServiceControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -184,6 +188,7 @@ export class MtcTransferServiceControllerService {
     public getTransferDetailsUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FullTransferDetails>>;
     public getTransferDetailsUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FullTransferDetails>>;
     public getTransferDetailsUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getTransferDetailsUsingGET.');
         }
@@ -191,7 +196,7 @@ export class MtcTransferServiceControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -231,9 +236,11 @@ export class MtcTransferServiceControllerService {
     public releaseTransferUsingPOST(idTransfer: number, transferReleaseRequest: TransferReleaseRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public releaseTransferUsingPOST(idTransfer: number, transferReleaseRequest: TransferReleaseRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public releaseTransferUsingPOST(idTransfer: number, transferReleaseRequest: TransferReleaseRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (idTransfer === null || idTransfer === undefined) {
             throw new Error('Required parameter idTransfer was null or undefined when calling releaseTransferUsingPOST.');
         }
+
         if (transferReleaseRequest === null || transferReleaseRequest === undefined) {
             throw new Error('Required parameter transferReleaseRequest was null or undefined when calling releaseTransferUsingPOST.');
         }
@@ -241,7 +248,7 @@ export class MtcTransferServiceControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -285,6 +292,7 @@ export class MtcTransferServiceControllerService {
     public searchNotesByTransferIdUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TransferNote>>>;
     public searchNotesByTransferIdUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TransferNote>>>;
     public searchNotesByTransferIdUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling searchNotesByTransferIdUsingGET.');
         }
@@ -292,7 +300,7 @@ export class MtcTransferServiceControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -331,6 +339,7 @@ export class MtcTransferServiceControllerService {
     public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginatedResultComposedTransferBasicInfo>>;
     public searchTransfersUsingPOST(filter: SearchRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginatedResultComposedTransferBasicInfo>>;
     public searchTransfersUsingPOST(filter: SearchRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (filter === null || filter === undefined) {
             throw new Error('Required parameter filter was null or undefined when calling searchTransfersUsingPOST.');
         }
@@ -338,7 +347,7 @@ export class MtcTransferServiceControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 

@@ -25,7 +25,6 @@ export * from './paginatedResultComposedTransferBasicInfo';
 export * from './paginatedResultSearchCustomerResponse';
 export * from './policy';
 export * from './range';
-export * from './responseEntity';
 export * from './restError';
 export * from './rule';
 export * from './ruleParamDescriptor';

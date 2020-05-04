@@ -28,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class MtcGsGeolocationControllerService {
 
-    protected basePath = 'https://vader:9003';
+    protected basePath = 'https://mtc-ms-backoffice-api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -68,6 +68,7 @@ export class MtcGsGeolocationControllerService {
     public getCityByIdUsingGET(idCity: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<GsGeolocationCity>>;
     public getCityByIdUsingGET(idCity: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<GsGeolocationCity>>;
     public getCityByIdUsingGET(idCity: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (idCity === null || idCity === undefined) {
             throw new Error('Required parameter idCity was null or undefined when calling getCityByIdUsingGET.');
         }
@@ -75,7 +76,7 @@ export class MtcGsGeolocationControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
@@ -115,9 +116,11 @@ export class MtcGsGeolocationControllerService {
     public searchCityByCountryAndNameUsingGET(country: string, cityName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<GsGeolocationCity>>>;
     public searchCityByCountryAndNameUsingGET(country: string, cityName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<GsGeolocationCity>>>;
     public searchCityByCountryAndNameUsingGET(country: string, cityName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (country === null || country === undefined) {
             throw new Error('Required parameter country was null or undefined when calling searchCityByCountryAndNameUsingGET.');
         }
+
         if (cityName === null || cityName === undefined) {
             throw new Error('Required parameter cityName was null or undefined when calling searchCityByCountryAndNameUsingGET.');
         }
@@ -125,7 +128,7 @@ export class MtcGsGeolocationControllerService {
         let headers = this.defaultHeaders;
 
         // authentication (Authorization) required
-        if (this.configuration.apiKeys["Authorization"]) {
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
 
